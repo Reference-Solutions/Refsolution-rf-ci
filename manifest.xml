@@ -1,11 +1,11 @@
-# testsuiteName ="Example"
-# robotframework = 'true' //other way is there with parameter
+<!-- # testsuiteName ="Example"
+# robotframework = 'true' //other way is there with parameter -->
 
 
 
 <manifest>
   <robotFrameworkEnabled>true</robotFrameworkEnabled>
-  <robotFrameworkDir>Test-HTML-Report</robotFrameworkDir>
+  <robotFrameworkDir>Test-HTML-Report/TestSuits/Example</robotFrameworkDir>
   <testSuiteName>Example</testSuiteName>
   
   <parameters>
