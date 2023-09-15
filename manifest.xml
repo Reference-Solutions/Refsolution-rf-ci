@@ -1,19 +1,11 @@
-<!-- # testsuiteName ="Example"
-# robotframework = 'true' //other way is there with parameter -->
-
-
-
 <manifest>
   <robotFrameworkEnabled>true</robotFrameworkEnabled>
   <robotFrameworkDir>Test-HTML-Report/TestSuits/Example</robotFrameworkDir>
-  <testSuiteName>Example</testSuiteName>
-  
+  <testSuiteName>Example</testSuiteName> 
   <parameters>
     <parameter name="repoUrl" value="https://sourcecode.socialcoding.bosch.com/scm/~pow2kor/test-html-report.git"/>
     <parameter name="branchName" value="Master"/>
     <parameter name="Credentials" value="pow2kor_http_tokenss"/>
-
-    <!-- Add more parameters -->
   </parameters>
 </manifest>
 
