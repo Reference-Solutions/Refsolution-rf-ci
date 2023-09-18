@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest>
   <robotFrameworkEnabled>true</robotFrameworkEnabled>
   <robotFrameworkDir>Test-HTML-Report/TestSuits/Example</robotFrameworkDir>
