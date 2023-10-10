@@ -35,18 +35,6 @@ void runTask(Map env, Map stageInput) {
                 println("Incomplete or missing information in the manifest file.")
             }
         } 
-        // else {
-        //     println("Make the method as true")
-        // }
-
-
-    // if (repoUrl && credentials) {
-    //     // Construct the full URL to the Robot Framework test
-    //     def robotTestUrl = "${repoUrl}/TestSuits/Example"
-    //     logger.info("robotTestUrl: ${robotTestUrl}")
-    // } else {
-    //     println("Incomplete or missing information in the manifest file.")
-    // }
 
 void executeRobotFrameworkTests(Map env, Map stageInput) {
     // Construct the Robot Framework command
