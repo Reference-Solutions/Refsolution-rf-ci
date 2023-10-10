@@ -5,9 +5,9 @@
 script.stage("Read manifest file") {
     runTask(env, stageInput)
 } 
-script.stage("Execute RF") {
-    executeRobotFrameworkTests(env, stageInput)
-    }
+// script.stage("Execute RF") {
+//     executeRobotFrameworkTests(env, stageInput)
+//     }
 
 void runTask(Map env, Map stageInput) {
     logger.info("TODO: Verification")
@@ -36,41 +36,41 @@ void runTask(Map env, Map stageInput) {
             }
         } 
 
-void executeRobotFrameworkTests(Map env, Map stageInput) {
-    // Construct the Robot Framework command
-    def includeTags = "regression example"
-    def excludeTags = "sanity example"
+// void executeRobotFrameworkTests(Map env, Map stageInput) {
+//     // Construct the Robot Framework command
+//     def includeTags = "regression example"
+//     def excludeTags = "sanity example"
        
 
-    def robot_options = "--outputdir reports " +
-                        "--variable BROWSER:chrome " +
-                        "--loglevel DEBUG " +
-                        "--consolecolors on"
+//     def robot_options = "--outputdir reports " +
+//                         "--variable BROWSER:chrome " +
+//                         "--loglevel DEBUG " +
+//                         "--consolecolors on"
 
-    def robot_test_dir = env.ROBOT_TEST_DIR  // Update with your test directory
+//     def robot_test_dir = env.ROBOT_TEST_DIR  // Update with your test directory
 
-    script.bat """
-        echo 'RF execution starts'
-        python -m robot.run ${robot_options} ${robot_test_dir}
-    """
-        // Publish HTML reports
-        // python -m robot.run -d ./Results/Lastrun --pythonpath Test-HTML-Report/TestKetwords/Example/ --consolecolors on ${robot_test_dir}
-    publishHTML()
-}
+//     script.bat """
+//         echo 'RF execution starts'
+//         python -m robot.run ${robot_options} ${robot_test_dir}
+//     """
+//         // Publish HTML reports
+//         // python -m robot.run -d ./Results/Lastrun --pythonpath Test-HTML-Report/TestKetwords/Example/ --consolecolors on ${robot_test_dir}
+//     publishHTML()
+// }
 
-void publishHTML() {
-    // Publish HTML reports (modify this as needed)
-    script.publishHTML(target: [
-        allowMissing: false,
-        alwaysLinkToLastBuild: false,
-        keepAll: true,
-        reportDir: 'reports',
-        reportFiles: 'report.html', // Modify this to match your report file
-        reportName: 'Robot Framework Report',
-        reportTitles: 'Robot Framework Report',
-        wrapperName: 'htmlpublisher'
-    ])
-}
+// void publishHTML() {
+//     // Publish HTML reports (modify this as needed)
+//     script.publishHTML(target: [
+//         allowMissing: false,
+//         alwaysLinkToLastBuild: false,
+//         keepAll: true,
+//         reportDir: 'reports',
+//         reportFiles: 'report.html', // Modify this to match your report file
+//         reportName: 'Robot Framework Report',
+//         reportTitles: 'Robot Framework Report',
+//         wrapperName: 'htmlpublisher'
+//     ])
+// }
 
 def readManifest(String manifestFilePath) {
     def xml = script.readFile(encoding: 'UTF-8', file: manifestFilePath)
