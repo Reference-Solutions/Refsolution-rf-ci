@@ -24,10 +24,11 @@ void runTask(Map env, Map stageInput) {
                 // Construct the full URL to the Robot Framework test
                 def robotTestUrl = "${repoUrl}/TestSuits/Example"
                 logger.info("robotTestUrl: ${robotTestUrl}")
-            } else {
+            } 
+            else {
                 println("Incomplete or missing information in the manifest file.")
             }
-        } 
+} 
 
 def readManifest(String manifestFilePath) {
     def xml = script.readFile(encoding: 'UTF-8', file: manifestFilePath)
