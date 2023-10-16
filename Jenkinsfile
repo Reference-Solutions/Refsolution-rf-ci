@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'windows-lab-pc' }
 
     stages {
         stage('Read manifest file') {
