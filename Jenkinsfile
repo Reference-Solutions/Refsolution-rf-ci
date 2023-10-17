@@ -29,10 +29,10 @@ def runTask(stageInput) {
 }
 
 def readManifest(String manifestFilePath) {
-    //def xml = readFile encoding: 'UTF-8', file: manifestFilePath
-    //def parsedManifest = new XmlSlurper().parseText(xml)
-    def xml = readFile(encoding: 'UTF-8', file: manifestFilePath)
-    def parsedManifest = new groovy.util.XmlParser().parseText(xml)
+    def xml = readFile encoding: 'UTF-8', file: manifestFilePath
+    def parsedManifest = new XmlSlurper().parseText(xml)
+    // def xml = readFile(encoding: 'UTF-8', file: manifestFilePath)
+    // def parsedManifest = new groovy.util.XmlParser().parseText(xml)
     parsedManifest
     // return parsedManifest
 }
