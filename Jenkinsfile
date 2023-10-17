@@ -8,7 +8,8 @@ pipeline {
         stage('Read manifest file') {
             steps {
                 script {
-					readManifest(manifest_file_path)
+					def parsedManifest = readManifest(manifest_file_path)
+					println parsedManifest
                 }
             }
         }
@@ -17,7 +18,9 @@ pipeline {
 
  
 
-def readManifest(def manifest_file_path){
-	println manifest_file_path
+def readManifest(String manifestFilePath) {
+    def xml = readFile encoding: 'UTF-8', file: manifestFilePath
+    def parsedManifest = new XmlSlurper().parseText(xml)
+    return parsedManifest
 }
 
