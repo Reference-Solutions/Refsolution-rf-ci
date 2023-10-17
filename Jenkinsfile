@@ -1,18 +1,3 @@
-pipeline {
-    agent { label 'windows-lab-pc' }
-
-    stages {
-        stage('Read manifest file') {
-            steps {
-                script {
-                    bat "echo Hello"
-                    runTask(env, currentBuild.rawBuild)
-                }
-            }
-        }
-    }
-}
-
 def runTask(Map env, currentBuild) {
     echo "TODO: Verification"
     def manifestFilePath = currentBuild.getEnvVars()["MANIFEST_FILE_PATH"]
@@ -41,3 +26,19 @@ def readManifest(String manifestFilePath) {
     def parsedManifest = new XmlSlurper().parseText(xml)
     return parsedManifest
 }
+
+pipeline {
+    agent { label 'windows-lab-pc' }
+
+    stages {
+        stage('Read manifest file') {
+            steps {
+                script {
+                    bat "echo Hello"
+                    runTask(env, currentBuild.rawBuild)
+                }
+            }
+        }
+    }
+}
+
