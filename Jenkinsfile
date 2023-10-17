@@ -1,6 +1,7 @@
 //def runTask(Map env, currentBuild) {
 //void runTask(Map env, Map stageInput) {
 def runTask(stageInput) {
+    def script = this
     script {
     echo "TODO: Verification"
     //def manifestFilePath = currentBuild.getEnvVars()["MANIFEST_FILE_PATH"]
@@ -30,7 +31,7 @@ def runTask(stageInput) {
 def readManifest(String manifestFilePath) {
     //def xml = readFile encoding: 'UTF-8', file: manifestFilePath
     //def parsedManifest = new XmlSlurper().parseText(xml)
-    def xml = script.readFile(encoding: 'UTF-8', file: manifestFilePath)
+    def xml = readFile(encoding: 'UTF-8', file: manifestFilePath)
     def parsedManifest = new groovy.util.XmlParser().parseText(xml)
     parsedManifest
     // return parsedManifest
