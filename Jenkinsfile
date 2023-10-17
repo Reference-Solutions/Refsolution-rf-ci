@@ -1,6 +1,7 @@
 //def runTask(Map env, currentBuild) {
 //void runTask(Map env, Map stageInput) {
 def runTask(stageInput) {
+    script {
     echo "TODO: Verification"
     //def manifestFilePath = currentBuild.getEnvVars()["MANIFEST_FILE_PATH"]
     String manifestFilePath = stageInput.manifest_file_path
@@ -22,6 +23,7 @@ def runTask(stageInput) {
         // Clone the repo or perform any other necessary actions here.
     } else {
         echo "Incomplete or missing information in the manifest file."
+    }
     }
 }
 
