@@ -1,6 +1,9 @@
-def runTask(Map env, currentBuild) {
+//def runTask(Map env, currentBuild) {
+void runTask(Map env, Map stageInput) {
     echo "TODO: Verification"
-    def manifestFilePath = currentBuild.getEnvVars()["MANIFEST_FILE_PATH"]
+    //def manifestFilePath = currentBuild.getEnvVars()["MANIFEST_FILE_PATH"]
+    String manifestFilePath = stageInput.manifest_file_path
+
     echo "manifestFilePath: ${manifestFilePath}"
 
     def manifestContent = readManifest(manifestFilePath)
@@ -22,9 +25,12 @@ def runTask(Map env, currentBuild) {
 }
 
 def readManifest(String manifestFilePath) {
-    def xml = readFile encoding: 'UTF-8', file: manifestFilePath
-    def parsedManifest = new XmlSlurper().parseText(xml)
-    return parsedManifest
+    //def xml = readFile encoding: 'UTF-8', file: manifestFilePath
+    //def parsedManifest = new XmlSlurper().parseText(xml)
+    def xml = script.readFile(encoding: 'UTF-8', file: manifestFilePath)
+    def parsedManifest = new groovy.util.XmlParser().parseText(xml)
+    parsedManifest
+    // return parsedManifest
 }
 
 pipeline {
@@ -35,7 +41,11 @@ pipeline {
             steps {
                 script {
                     bat "echo Hello"
-                    runTask(env, currentBuild.rawBuild)
+                    def stageInput = [
+                        manifest_file_path: 'refsolution-rf-ci/manifest.xml'
+                    ]
+                    //runTask(env, currentBuild.rawBuild)
+                    runTask(env, stageInput)
                 }
             }
         }
