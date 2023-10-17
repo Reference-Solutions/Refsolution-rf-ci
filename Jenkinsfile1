@@ -5,6 +5,7 @@ pipeline {
         stage('Read manifest file') {
             steps {
                 script {
+                    bat "echo Hello"
                     runTask(env, currentBuild.rawBuild)
                 }
             }
