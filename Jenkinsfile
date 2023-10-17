@@ -1,5 +1,6 @@
 //def runTask(Map env, currentBuild) {
-void runTask(Map env, Map stageInput) {
+//void runTask(Map env, Map stageInput) {
+def runTask(stageInput) {
     echo "TODO: Verification"
     //def manifestFilePath = currentBuild.getEnvVars()["MANIFEST_FILE_PATH"]
     String manifestFilePath = stageInput.manifest_file_path
@@ -43,9 +44,12 @@ pipeline {
                     bat "echo Hello"
                     def stageInput = [
                         manifest_file_path: 'refsolution-rf-ci/manifest.xml'
+
                     ]
                     //runTask(env, currentBuild.rawBuild)
-                    runTask(env, stageInput)
+                    //runTask(env, stageInput)
+                    runTask(stageInput)
+
                 }
             }
         }
