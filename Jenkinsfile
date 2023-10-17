@@ -18,6 +18,6 @@ pipeline {
  
 
 def readManifest(def manifest_file_path){
-	println ${manifest_file_path}
+	println manifest_file_path
 }
 
