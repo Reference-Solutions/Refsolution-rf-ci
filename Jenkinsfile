@@ -6,14 +6,15 @@ pipeline {
         stage('Read manifest file') {
             steps {
                 script {
-                    // git branch: 'master', credentialsId: 'Soco-credentials-hari', url: 'https://sourcecode.socialcoding.bosch.com/scm/~pow2kor/refsolution-rf-ci.git'
-					def customWorkspace = env.CUSTOM_WORKSPACE
-                    echo "Custom Workspace: ${customWorkspace}"
-                    def WorkingDirectory = pwd()
-                    echo "PATH: ${WorkingDirectory}"
+                    git branch: 'master', credentialsId: 'Soco-credentials-hari', url: 'https://sourcecode.socialcoding.bosch.com/scm/~pow2kor/refsolution-rf-ci.git'
+				// 	def customWorkspace = env.CUSTOM_WORKSPACE
+    //                 echo "Custom Workspace: ${customWorkspace}"
+    //                 def WorkingDirectory = pwd()
+    //                 echo "PATH: ${WorkingDirectory}"
 
-                    manifest_file_path = "${customWorkspace}\\manifest.xml"
+                    manifest_file_path = "C:\\Jenkins\\workspace\\common-Test\\SharedLib-Restructure\\Test\\manifest.xml"
                     println manifest_file_path
+                    
                     def manifestContent = readManifest(manifest_file_path)
 					println manifestContent
 
@@ -21,6 +22,7 @@ pipeline {
                     def branchName = manifestContent.parameters.parameter.find { it.@name == "branchName" }?.@value
                     def credentials = manifestContent.parameters.parameter.find { it.@name == "Credentials" }?.@value
                     println "RobotframeworkContent: ${repoUrl} ${branchName}${credentials}"
+
 
                 }
             }
@@ -33,4 +35,7 @@ def readManifest(String manifest_file_path) {
     def manifestContent = new XmlSlurper().parseText(xml)
     return manifestContent
 }
+
+
+
 
