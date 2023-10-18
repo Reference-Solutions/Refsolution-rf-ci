@@ -14,7 +14,7 @@ pipeline {
                     pwd
                     ls
                     '''
-                    manifest_file_path = "${customWorkspace}\manifest.xml"
+                    manifest_file_path = "${customWorkspace}/manifest.xml"
                     println manifest_file_path
                     def manifestContent = readManifest(manifest_file_path)
 					println manifestContent
