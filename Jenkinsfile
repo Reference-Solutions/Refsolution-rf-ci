@@ -7,7 +7,9 @@ pipeline {
             steps {
                 script {
                     // git branch: 'master', credentialsId: 'Soco-credentials-hari', url: 'https://sourcecode.socialcoding.bosch.com/scm/~pow2kor/refsolution-rf-ci.git'
-					manifest_file_path = "refsolution-rf-ci/manifest.xml"
+					def customWorkspace = env.CUSTOM_WORKSPACE
+                    echo "Custom Workspace: ${customWorkspace}"
+                    manifest_file_path = "${customWorkspace}//manifest.xml"
                     def parsedManifest = readManifest(manifest_file_path)
 					println parsedManifest
 
