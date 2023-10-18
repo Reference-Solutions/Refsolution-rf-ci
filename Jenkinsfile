@@ -1,11 +1,3 @@
-// Jenkinsfile demo
-
-@Library('RefSolutions-Pipeliner@feature/15801-robotframework') _ // Load the my-nested-library as a shared library
-
-env.pip_robotframework = true
-execVerification()
-manifest_file_path = 'refsolution-rf-ci/manifest.xml'
-
 pipeline {
     agent { 
 		label 'windows-lab-pc'
