@@ -64,7 +64,7 @@ def executeRobot(def componentContent){
     def robot_test_dir = env.ROBOT_TEST_DIR  // Update with your test directory
 
 
-    script.bat """
+    bat """
         echo 'RF execution starts'
         python -m robot.run ${robot_options} ${robot_test_dir}
     """
