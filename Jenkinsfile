@@ -25,6 +25,24 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+			step([
+				$class : "RobotPublisher",
+				outputPath : "reports/",
+				outputFileName : "*.xml",
+				disableArchiveOutput : false,
+				passThreshold : 100,
+				unstableThreshold: 95.0,
+				otherFiles : "*.png",
+				frameOptions: [
+                allowScripts: true // Add the 'allow-scripts' permission
+            ]
+			])
+      }
+}
+
 }
 
 def readManifest(String manifest_file_path) {
@@ -67,22 +85,5 @@ def executeRobot(def componentContent){
         echo 'RF execution starts'
         python -m robot.run ${robot_options} ${robot_test_dir}
     """
-}
-
-post {
-        always {
-			step([
-				$class : "RobotPublisher",
-				outputPath : "reports/",
-				outputFileName : "*.xml",
-				disableArchiveOutput : false,
-				passThreshold : 100,
-				unstableThreshold: 95.0,
-				otherFiles : "*.png",
-				frameOptions: [
-                allowScripts: true // Add the 'allow-scripts' permission
-            ]
-			])
-      }
 }
 
