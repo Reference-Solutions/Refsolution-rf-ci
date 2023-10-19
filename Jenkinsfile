@@ -32,7 +32,7 @@ pipeline {
 }
 
 
-
+@NonCPS
 def readManifest(String manifest_file_path) {
     def xml = readFile encoding: 'UTF-8', file: manifest_file_path
     def manifestContent = new XmlSlurper().parseText(xml)
