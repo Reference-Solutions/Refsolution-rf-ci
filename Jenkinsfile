@@ -3,7 +3,7 @@ pipeline {
 		label 'windows-lab-pc'
 	}
     stages {
-        stage('Read manifest file') {
+        stage('Read manifest file and execute rf') {
             steps {
                 script{
                  
