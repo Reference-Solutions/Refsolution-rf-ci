@@ -57,4 +57,31 @@ def doCheckout(def url, def branch, def credentialsId, def extensions){
 def executeRobot(def componentContent){
 	println componentContent["robotFrameworkDir"].text()
 	println componentContent["testSuiteName"].text()
+    
+    def robot_options = "--outputdir reports " +
+                        "--consolecolors on"
+
+    def robot_test_dir = env.ROBOT_TEST_DIR  // Update with your test directory
+
+
+    script.bat """
+        echo 'RF execution starts'
+        python -m robot.run ${robot_options} ${robot_test_dir}
+    """
+    publishHTML()
 }
+
+def publishHTML() {
+    
+    script.publishHTML(target: [
+        allowMissing: false,
+        alwaysLinkToLastBuild: false,
+        keepAll: true,
+        reportDir: 'reports',
+        reportFiles: 'report.html', // Modify this to match your report file
+        reportName: 'Robot Framework Report',
+        reportTitles: 'Robot Framework Report',
+        wrapperName: 'htmlpublisher'
+    ])
+}
+
