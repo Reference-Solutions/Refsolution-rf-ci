@@ -12,6 +12,12 @@ pipeline {
                     println workspaceName_New
 
 
+                  //  manifest_file_path = "C:\\Jenkins\\workspace\\common-Test\\SharedLib-Restructure\\Test\\manifest.xml"
+                    manifest_file_path = "${workspaceName_New}\\manifest.xml"
+                    println manifest_file_path
+                    
+
+
                 }
             }
         }
