@@ -19,9 +19,9 @@ pipeline {
 					println manifestContent
                     
                     // Extract the repoUrl value
-                   // def repoUrl = manifestContent.parameters.parameter.find { it.name.text() == " repoUrl:" }?.value.text()
+                    def repoUrl = manifestContent.parameters.parameter.find { it.name.text() == " repoUrl:" }?.value.text()
     
-                    def repoUrl = manifestContent.parameters.parameter.find { it.@name == " repoUrl:" }?.@value
+                  //  def repoUrl = manifestContent.parameters.parameter.find { it.@name == " repoUrl:" }?.@value
                     println "RepoUrl: ${repoUrl}"
 
 
