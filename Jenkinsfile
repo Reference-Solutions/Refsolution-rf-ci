@@ -22,7 +22,7 @@ pipeline {
                     
                     // Extract the repoUrl value
                    // def repoUrl = manifestContent.parameters.parameter.find { it.name.text() == " repoUrl:" }?.value.text()
-                    
+                    @NonCPS
                     def repoUrl = manifestContent.parameters.parameter.find { it.@name == " repoUrl:" }?.@value
                     println "RepoUrl: ${repoUrl}"
 
