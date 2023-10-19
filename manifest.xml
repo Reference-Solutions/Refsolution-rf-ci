@@ -18,15 +18,15 @@
 
   <parameters>
     <parameter>
-      <name> repoUrl</name>
+      <name>repoUrl:</name>
       <value>https://sourcecode.socialcoding.bosch.com/scm/~pow2kor/test-html-report.git</value>
     </parameter>
     <parameter>
-      <name> branchName</name>
+      <name> branchName:</name>
       <value>Master</value>
     </parameter>
     <parameter>
-      <name> Credentials</name>
+      <name> Credentials:</name>
       <value>pow2kor_http_tokenss</value>
     </parameter>
   </parameters>
