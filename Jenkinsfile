@@ -28,18 +28,7 @@ pipeline {
 
     post {
         always {
-			step([
-				$class : "RobotPublisher",
-				outputPath : "reports/",
-				outputFileName : "*.xml",
-				disableArchiveOutput : false,
-				passThreshold : 100,
-				unstableThreshold: 95.0,
-				otherFiles : "*.png",
-				frameOptions: [
-                allowScripts: true // Add the 'allow-scripts' permission
-            ]
-			])
+			publishRobotResult("testdata", 100, 95)
       }
 }
 
@@ -51,15 +40,66 @@ def readManifest(String manifest_file_path) {
 	return parsed_manifest
 }
 
-def checkoutRobotRepo(def componentContent){
+def checkoutRobotRepo(def rfContent){
 	
-	url = componentContent["repoUrl"].text()
-	branch = componentContent["branchName"].text()
-	credentialsId = componentContent["credentials"].text()
+	url = rfContent["repoUrl"].text()
+	branch = rfContent["branchName"].text()
+	credentialsId = rfContent["credentials"].text()
 	println "$url, $branch, $credentialsId"
 	
 	doCheckout(url, branch, credentialsId, [])	
 }
+
+def executeRobot(def rfContent){
+	String testSuiteDir = rfContent["testSuiteDir"].text()
+	
+	String testSuiteName = rfContent["testSuiteName"].text()
+
+    String testSuiteFullPath = "${testSuiteDir}\\${testSuiteName}"  // Update with your test directory
+
+	String robotCmd = "python -m robot"
+	
+	robotCmd = robotCmd + " --outputdir testdata"
+	// robotCmd = robotCmd + " --tag"
+	// robotCmd = robotCmd + " --variable"
+	robotCmd = robotCmd + " --consolecolors on"
+	robotCmd = robotCmd + " --report ${testSuiteName}_REPORT"
+	robotCmd = robotCmd + " --log ${testSuiteName}_LOGS"
+	robotCmd = robotCmd + " --output ${testSuiteName}_OUTPUT "
+	// robotCmd = robotCmd + " --loglevel level"
+	// robotCmd = robotCmd + " --include tag "
+	// robotCmd = robotCmd + " --exclude tag "
+	
+	//This testSuiteFullPath variable need to be added at last in the robotCmd
+	robotCmd = robotCmd + " ${testSuiteFullPath}"
+	
+	runCmd(robotCmd)
+}
+
+def runCmd(String cmd){
+	if (isUnix()){
+		sh cmd
+	}
+	else{
+		bat cmd
+	}
+}
+
+def publishRobotResult(String testResultsDirectory, Integer passThreshold, Integer unstableThreshold) {
+	stage('Publish test results') {
+		step([
+				$class           : 'hudson.plugins.robot.RobotPublisher',
+				outputPath       : "${testResultsDirectory}",
+				passThreshold    : passThreshold,
+				unstableThreshold: unstableThreshold,
+				otherFiles       : '*.png',
+				reportFileName   : '**\\*REPORT*.html',
+				logFileName      : '**\\*LOGS*.html',
+				outputFileName   : '**\\*OUTPUT*.xml'
+		])
+	}
+}
+
 
 def doCheckout(def url, def branch, def credentialsId, def extensions){
 	boolean customCheckout = url != null
@@ -71,19 +111,3 @@ def doCheckout(def url, def branch, def credentialsId, def extensions){
 		userRemoteConfigs: customCheckout ? [[url: url, credentialsId: credentialsId]] : scm.userRemoteConfigs
 	])
 }
-
-def executeRobot(def componentContent){
-	rfDir = componentContent["robotFrameworkDir"].text()
-	testSuite = componentContent["testSuiteName"].text()
-    
-    def robot_options = "--outputdir reports " +
-                        "--consolecolors on"
-
-    def robot_test_dir = "${rfDir}\\${testSuite}"  // Update with your test directory
-
-    bat """
-        echo 'RF execution starts'
-        python -m robot.run ${robot_options} ${robot_test_dir}
-    """
-}
-
