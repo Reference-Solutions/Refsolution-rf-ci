@@ -17,20 +17,17 @@ pipeline {
                     
                     def manifestContent = readManifest(manifest_file_path)
 					println manifestContent
-                    
 
                     def repoUrl = manifestContent.parameters.parameter.find { it.@name == "repoUrl" }?.@value
                     def branchName = manifestContent.parameters.parameter.find { it.@name == "branchName" }?.@value
                     def credentials = manifestContent.parameters.parameter.find { it.@name == "Credentials" }?.@value
-                    logger.info("RobotframeworkContent: ${repoUrl} ${branchName}${credentials}")
+                    println "RepoUrl: ${repoUrl}"
 
                     // Extract the repoUrl value
                   //..  def repoUrl = manifestContent.parameters.parameter.find { it.name.text() == " repoUrl:" }?.value.text()
     
-                  //  def repoUrl = manifestContent.parameters.parameter.find { it.@name == " repoUrl:" }?.@value
-                   //.. println "RepoUrl: ${repoUrl}"
-
-
+                   //def repoUrl = manifestContent.parameters.parameter.find { it.@name == " repoUrl:" }?.@value
+                   
                 }
             }
         }
@@ -39,6 +36,6 @@ pipeline {
 
 def readManifest(String manifest_file_path) {
     def xml = readFile encoding: 'UTF-8', file: manifest_file_path
-    def manifestContent = new groovy.util.XmlSlurper().parseText(xml)
+    def manifestContent = new XmlSlurper().parseText(xml)
     return manifestContent
 }

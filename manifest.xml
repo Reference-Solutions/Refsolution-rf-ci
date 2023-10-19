@@ -1,4 +1,4 @@
-<manifest>
+<!-- <manifest>
   <robotFrameworkEnabled>true</robotFrameworkEnabled>
   <robotFrameworkDir>Test-HTML-Report/TestSuits/Example</robotFrameworkDir>
   <testSuiteName>Example</testSuiteName> 
@@ -7,11 +7,10 @@
     <parameter name="branchName" value="Master"/>
     <parameter name="Credentials" value="pow2kor_http_tokenss"/>
   </parameters>
-</manifest>
+</manifest> -->
 
 
-
-<!-- <manifest>
+<manifest>
   <robotFrameworkEnabled>true</robotFrameworkEnabled>
   <robotFrameworkDir>Test-HTML-Report/TestSuits/Example</robotFrameworkDir>
   <testSuiteName>Example</testSuiteName>
@@ -30,7 +29,7 @@
       <value>pow2kor_http_tokenss</value>
     </parameter>
   </parameters>
-</manifest> -->
+</manifest>
 
 
 
