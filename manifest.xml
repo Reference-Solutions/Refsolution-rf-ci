@@ -3,7 +3,7 @@
   <component>
     <name>VRTE</name>
     <robotFrameworkEnabled>true</robotFrameworkEnabled>
-    <robotFrameworkDir>TestSuits/Example</robotFrameworkDir>
+    <robotFrameworkDir>TestSuits\Example</robotFrameworkDir>
     <testSuiteName>Example</testSuiteName>
     <repoUrl>https://sourcecode.socialcoding.bosch.com/scm/~pow2kor/test-html-report.git</repoUrl>
     <branchName>master</branchName>

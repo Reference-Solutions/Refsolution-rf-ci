@@ -79,7 +79,7 @@ def executeRobot(def componentContent){
     def robot_options = "--outputdir reports " +
                         "--consolecolors on"
 
-    def robot_test_dir = "${rfDir}/${testSuite}"  // Update with your test directory
+    def robot_test_dir = "${rfDir}\\${testSuite}"  // Update with your test directory
 
     bat """
         echo 'RF execution starts'
