@@ -18,7 +18,20 @@ pipeline {
                     println manifest_file_path
                     
                     def manifestContent = readManifest(manifest_file_path)
-					println manifestContent
+					
+                    
+                     // Pretty-print the XML content
+                    def prettyXml = new groovy.xml.StreamingMarkupBuilder().bind {
+                        out << new groovy.xml.MarkupBuilder()
+                        out.mkp.declare(xml: "true")
+                        out.assemble(manifestContent)
+                    }
+
+                    println prettyXml
+
+                    // Extract the repoUrl value
+                    def repoUrl = manifestContent.parameters.parameter.find { it.name.text() == "repoUrl" }?.value.text()
+                    println "RepoUrl: ${repoUrl}"
 
 
                 }
