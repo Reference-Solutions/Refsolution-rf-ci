@@ -73,13 +73,13 @@ def doCheckout(def url, def branch, def credentialsId, def extensions){
 }
 
 def executeRobot(def componentContent){
-	println componentContent["robotFrameworkDir"].text()
-	println componentContent["testSuiteName"].text()
+	rfDir = componentContent["robotFrameworkDir"].text()
+	testSuite = componentContent["testSuiteName"].text()
     
     def robot_options = "--outputdir reports " +
                         "--consolecolors on"
 
-    def robot_test_dir = env.ROBOT_TEST_DIR  // Update with your test directory
+    def robot_test_dir = "${rfDir}//${testSuite}"  // Update with your test directory
 
     bat """
         echo 'RF execution starts'
