@@ -1,4 +1,4 @@
-<!-- <manifest>
+<manifest>
   <robotFrameworkEnabled>true</robotFrameworkEnabled>
   <robotFrameworkDir>Test-HTML-Report/TestSuits/Example</robotFrameworkDir>
   <testSuiteName>Example</testSuiteName> 
@@ -7,18 +7,18 @@
     <parameter name="branchName" value="Master"/>
     <parameter name="Credentials" value="pow2kor_http_tokenss"/>
   </parameters>
-</manifest> -->
+</manifest>
 
 
 
-<manifest>
+<!-- <manifest>
   <robotFrameworkEnabled>true</robotFrameworkEnabled>
   <robotFrameworkDir>Test-HTML-Report/TestSuits/Example</robotFrameworkDir>
   <testSuiteName>Example</testSuiteName>
 
   <parameters>
     <parameter>
-      <name>repoUrl:</name>
+      <name> repoUrl:</name>
       <value>https://sourcecode.socialcoding.bosch.com/scm/~pow2kor/test-html-report.git</value>
     </parameter>
     <parameter>
@@ -30,7 +30,7 @@
       <value>pow2kor_http_tokenss</value>
     </parameter>
   </parameters>
-</manifest>
+</manifest> -->
 
 
 
