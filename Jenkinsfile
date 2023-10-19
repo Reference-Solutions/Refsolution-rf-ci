@@ -1,3 +1,16 @@
+import groovy.xml.XmlSlurper
+import groovy.xml.XmlUtil
+import hudson.util.jna.GNUCLibrary
+import org.jenkinsci.plugins.scriptsecurity.sandbox.whitelists.Whitelisted
+
+
+@NonCPS
+def readManifest(String manifest_file_path) {
+    def xml = readFile encoding: 'UTF-8', file: manifest_file_path
+    def manifestContent = new XmlSlurper().parseText(xml)
+    return manifestContent
+}
+
 pipeline {
     agent { 
 		label 'windows-lab-pc'
@@ -22,7 +35,7 @@ pipeline {
                     
                     // Extract the repoUrl value
                    // def repoUrl = manifestContent.parameters.parameter.find { it.name.text() == " repoUrl:" }?.value.text()
-                    @NonCPS
+    
                     def repoUrl = manifestContent.parameters.parameter.find { it.@name == " repoUrl:" }?.@value
                     println "RepoUrl: ${repoUrl}"
 
@@ -31,12 +44,6 @@ pipeline {
             }
         }
     }
-}
-
-def readManifest(String manifest_file_path) {
-    def xml = readFile encoding: 'UTF-8', file: manifest_file_path
-    def manifestContent = new XmlSlurper().parseText(xml)
-    return manifestContent
 }
 
 
