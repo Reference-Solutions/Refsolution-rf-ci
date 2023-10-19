@@ -11,9 +11,10 @@ pipeline {
                     String workspaceName_New = env.EXECUTOR_WORKSPACE
                     println workspaceName_New
 
+                    customWorkspace = env.CUSTOM_WORKSPACE
 
                   //  manifest_file_path = "C:\\Jenkins\\workspace\\common-Test\\SharedLib-Restructure\\Test\\manifest.xml"
-                    manifest_file_path = "${workspaceName_New}\\manifest.xml"
+                    manifest_file_path = "${customWorkspace}\\${workspaceName_New}\\manifest.xml"
                     println manifest_file_path
                     
                     def manifestContent = readManifest(manifest_file_path)
