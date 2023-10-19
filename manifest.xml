@@ -2,8 +2,8 @@
 <manifest>
   <component>
     <name>VRTE</name>
-    <testSuiteDir>TestSuits\Example</testSuiteDir>
-    <testSuiteName>Example.robot</testSuiteName>
+    <testSuiteDir>TestSuits</testSuiteDir>
+    <testSuiteName>Example</testSuiteName>
     <repoUrl>https://sourcecode.socialcoding.bosch.com/scm/~pow2kor/test-html-report.git</repoUrl>
     <branchName>master</branchName>
     <credentials>pow2kor_http_tokenss</credentials>
