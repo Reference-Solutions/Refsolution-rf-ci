@@ -11,6 +11,8 @@ pipeline {
     //                 echo "Custom Workspace: ${customWorkspace}"
     //                 def WorkingDirectory = pwd()
     //                 echo "PATH: ${WorkingDirectory}"
+                    String workspaceName_New = env.EXECUTOR_WORKSPACE
+                    println workspaceName_New
 
                     manifest_file_path = "C:\\Jenkins\\workspace\\common-Test\\SharedLib-Restructure\\Test\\manifest.xml"
                     println manifest_file_path
@@ -23,6 +25,8 @@ pipeline {
                     def credentials = manifestContent.parameters.parameter.find { it.@name == "Credentials" }?.@value
                     println "RobotframeworkContent: ${repoUrl} ${branchName}${credentials}"
 
+ // Extract the repoUrl value
+                    def repoUrl = manifestContent.repoUrl.text()
 
                 }
             }
