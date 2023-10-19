@@ -63,25 +63,26 @@ def executeRobot(def componentContent){
 
     def robot_test_dir = env.ROBOT_TEST_DIR  // Update with your test directory
 
-
     bat """
         echo 'RF execution starts'
         python -m robot.run ${robot_options} ${robot_test_dir}
     """
-    publishHTML()
 }
 
-def publishHTML() {
-    
-    script.publishHTML(target: [
-        allowMissing: false,
-        alwaysLinkToLastBuild: false,
-        keepAll: true,
-        reportDir: 'reports',
-        reportFiles: 'report.html', // Modify this to match your report file
-        reportName: 'Robot Framework Report',
-        reportTitles: 'Robot Framework Report',
-        wrapperName: 'htmlpublisher'
-    ])
+post {
+        always {
+			step([
+				$class : "RobotPublisher",
+				outputPath : "reports/",
+				outputFileName : "*.xml",
+				disableArchiveOutput : false,
+				passThreshold : 100,
+				unstableThreshold: 95.0,
+				otherFiles : "*.png",
+				frameOptions: [
+                allowScripts: true // Add the 'allow-scripts' permission
+            ]
+			])
+      }
 }
 
