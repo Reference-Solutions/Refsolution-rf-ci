@@ -16,12 +16,13 @@ pipeline {
                     println manifest_file_path
                     
                     def manifestContent = readManifest(manifest_file_path)
-					println manifestContent
+					println manifestContent["repoUrl"].text()
+                    
 
-                    def repoUrl = manifestContent.parameters.parameter.find { it.@name == "repoUrl" }?.@value
-                    def branchName = manifestContent.parameters.parameter.find { it.@name == "branchName" }?.@value
-                    def credentials = manifestContent.parameters.parameter.find { it.@name == "Credentials" }?.@value
-                    println "RepoUrl: ${repoUrl}"
+                    // def repoUrl = manifestContent.parameters.parameter.find { it.@name == "repoUrl" }?.@value
+                    // def branchName = manifestContent.parameters.parameter.find { it.@name == "branchName" }?.@value
+                    // def credentials = manifestContent.parameters.parameter.find { it.@name == "Credentials" }?.@value
+                    // println "RepoUrl: ${repoUrl}"
 
                     // Extract the repoUrl value
                   //..  def repoUrl = manifestContent.parameters.parameter.find { it.name.text() == " repoUrl:" }?.value.text()
