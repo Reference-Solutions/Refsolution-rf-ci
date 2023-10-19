@@ -1,7 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-	<robotFrameworkEnabled>true</robotFrameworkEnabled>
-	<robotFrameworkDir>Test-HTML-Report/TestSuits/Example</robotFrameworkDir>
-	<testSuiteName>Example</testSuiteName>
-	<repoUrl>https://sourcecode.socialcoding.bosch.com/scm/~pow2kor/test-html-report.git</repoUrl>
+  <component>
+    <name>EthernetSwitch</name>
+    <type>pullArtifact</type>
+    <artifactoryServerID>artifactory-boschdevcloud</artifactoryServerID>
+    <artifactoryPath>lab000019-dasy2-generic-local/vip/eth-switch-nxp-sja1110/0.1/</artifactoryPath>
+  </component>
+  <component>
+    <name>Bootloader</name>
+    <type>pullArtifact</type>
+    <artifactoryServerID>artifactory-boschdevcloud</artifactoryServerID>
+    <artifactoryPath>lab000019-conan-local/bosch/cap-s32g-BootManager/0.2.2/</artifactoryPath>
+  </component>
+  <component>
+	<name>QNX</name>
+	<type>pipeline</type>
+	<repository>https://sourcecode.socialcoding.bosch.com/scm/~fui1cob/sdv-jenkins-repo.git</repository>
+	<jenkinsfile>vip/a53_sw/qnx/Jenkinsfile</jenkinsfile>
+	<jobPath>VIP/QNX</jobPath>
+	<triggers>
+	<pollscm>*/5 * * * *</pollscm>
+	<github-pull-request/>
+	<github-release-branch>master</github-release-branch>
+	<github-latest-tag/>
+	<schedule>nightly 0 0 * * *</schedule>
+	</triggers>
+  </component>	
+  <component>
+	<name>m7Software</name>
+	<type>pipeline</type>
+	<repository>https://sourcecode.socialcoding.bosch.com/scm/~fui1cob/sdv-jenkins-repo.git</repository>
+	<jenkinsfile>vip/m7_sw/Jenkinsfile</jenkinsfile>
+	<jobPath>VIP/M7_Software</jobPath>
+  </component>
+  <component>
+	<name>Apertis</name>
+	<type>pipeline</type>
+	<repository>https://sourcecode.socialcoding.bosch.com/scm/~fui1cob/sdv-jenkins-repo.git</repository>
+	<jenkinsfile>vip/a53_sw/Apertis/Jenkinsfile</jenkinsfile>
+	<jobPath>VIP/Apertis</jobPath>
+  </component>
 </manifest>
-
