@@ -6,16 +6,11 @@ pipeline {
         stage('Read manifest file and execute rf') {
             steps {
                 script{
-                 
-                    String workspaceName_New = env.EXECUTOR_WORKSPACE
-                    println workspaceName_New
+					workspace = env.WORKSPACE
+					if ( env.EXECUTOR_WORKSPACE != null )
+						workspace = env.EXECUTOR_WORKSPACE
+					parsed_manifest = readManifest(workspace + "\\" + pip_manifest_file_path)
 
-                    customWorkspace = env.CUSTOM_WORKSPACE
-
-                    manifest_file_path = "${customWorkspace}\\${workspaceName_New}\\manifest.xml"
-                    
-					parsed_manifest = readManifest(manifest_file_path)
-					
 					for (component in parsed_manifest['component']){
 						println "Component Name : $component"
 						checkoutRobotRepo(component)
@@ -25,7 +20,6 @@ pipeline {
             }
         }
     }
-
     post {
         always {
 			publishRobotResult("testdata", 100, 95)
@@ -52,23 +46,22 @@ def checkoutRobotRepo(def rfContent){
 
 def executeRobot(def rfContent){
 	String testSuiteDir = rfContent["testSuiteDir"].text()
-	
 	String testSuiteName = rfContent["testSuiteName"].text()
-
+	
     String testSuiteFullPath = "${testSuiteDir}\\${testSuiteName}"  // Update with your test directory
 
 	String robotCmd = "python -m robot"
 	
 	robotCmd = robotCmd + " --outputdir testdata"
-	// robotCmd = robotCmd + " --tag"
-	// robotCmd = robotCmd + " --variable"
 	robotCmd = robotCmd + " --consolecolors on"
 	robotCmd = robotCmd + " --report ${testSuiteName}_REPORT"
 	robotCmd = robotCmd + " --log ${testSuiteName}_LOGS"
 	robotCmd = robotCmd + " --output ${testSuiteName}_OUTPUT "
-	// robotCmd = robotCmd + " --loglevel level"
+	robotCmd = robotCmd + " --loglevel TRACE:INFO"
+	
 	// robotCmd = robotCmd + " --include tag "
 	// robotCmd = robotCmd + " --exclude tag "
+	// robotCmd = robotCmd + " --variable"
 	
 	//This testSuiteFullPath variable need to be added at last in the robotCmd
 	robotCmd = robotCmd + " ${testSuiteFullPath}"
