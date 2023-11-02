@@ -4,8 +4,9 @@
     <name>VRTE</name>
     <testSuiteDir>TestSuits</testSuiteDir>
     <testSuiteName>Example</testSuiteName>
-    <repoUrl>https://sourcecode.socialcoding.bosch.com/scm/~pow2kor/test-html-report.git</repoUrl>
-    <branchName>master</branchName>
-    <credentials>pow2kor_http_tokenss</credentials>
+    <repoUrl>sourcecode.socialcoding.bosch.com/scm/~pow2kor/test-html-report.git</repoUrl>
+    <branchName>feature/16550-HiL_Validation</branchName>
+    <username>ZRD2KOR</username>
+    <credentials>$PAT_TOKEN</credentials>
   </component>
 </manifest>
