@@ -53,7 +53,7 @@ pipeline {
                 }
             }
         }
-        stage('Archive the Artifacts') {
+        stage('Download testdata from S3 to Workspace') {
             steps {
                 script {
                     sh '''
