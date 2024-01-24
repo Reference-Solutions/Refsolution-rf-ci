@@ -59,7 +59,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    aws ssm start-session --document-name 'AWS-StartInteractiveCommand' --parameters '{"command": ["aws s3 cp /home/ssm-user/test-html-report/TestSuits/Example/testdata s3://hil-validation/testdata --recursive"]}' --target ${EC2_INSTANCE_ID}
+                    aws ssm start-session --document-name 'AWS-StartInteractiveCommand' --parameters '{"command": ["aws s3 cp /home/ssm-user/test-html-report/TestSuits/HiL_System/testdata s3://hil-validation/testdata --recursive"]}' --target ${EC2_INSTANCE_ID}
                     '''
                 }
             }
