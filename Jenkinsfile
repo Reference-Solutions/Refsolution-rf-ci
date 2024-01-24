@@ -22,11 +22,22 @@ pipeline {
         stage('Checkout & Execute Robot Framework') {
             steps {
                 script {
-                    workspace = env.WORKSPACE
-                    if (env.EXECUTOR_WORKSPACE != null)
-                        workspace = env.EXECUTOR_WORKSPACE
-                    parsed_manifest = readManifest(workspace + "\\" + pip_manifest_file_path)
-                    if (!parsed_manifest) {
+					String repoUrl = params.pip_robot_url ?: env.pip_robot_url
+					String branch = params.pip_robot_branch ?: env.pip_robot_branch
+					String credentialsId = params.pip_robot_checkout_credentials ?: env.pip_robot_checkout_credentials
+					
+					def repoName = repoUrl.replaceAll(".*/|.git","")
+					
+					ArrayList extensions = []
+					extensions << [$class: 'RelativeTargetDirectory', relativeTargetDir: repoName]
+					
+					def manifestFile = params.pip_robot_manifest_file_path ?: env.pip_robot_manifest_file_path
+				
+                    doCheckout(repoUrl, branch, credentialsId, extensions)
+					
+                    parsed_manifest = readManifest(manifestFile)
+                    
+					if (!parsed_manifest) {
                         error "Failed to parse the manifest.xml file."
                     }
                     for (component in parsed_manifest['component']) {
@@ -149,4 +160,15 @@ def publishRobotResult(String testResultsDirectory, Integer passThreshold, Integ
 			otherFiles       : ''
 		}
 	}
+}
+
+def doCheckout(String url=null, String branch=null, String credentialsId=null, ArrayList extensions=[]) {
+	boolean customCheckout = url != null
+	
+	checkout([
+		$class: 'GitSCM',
+		branches: customCheckout ? [[name: '*/' + branch]] : scm.branches,
+		extensions: (customCheckout || !scm.extensions) ? extensions : scm.extensions + extensions,
+		userRemoteConfigs: customCheckout ? [[url: url, credentialsId: credentialsId]] : scm.userRemoteConfigs
+	])
 }
