@@ -9,19 +9,13 @@ pipeline {
     }
 
     stages {
-		stage('Start the AWS Instance') {
+        stage('Run HiL Robot Framework') {
             steps {
                 script {
                     sh '''
                     aws ec2 start-instances --instance-ids ${EC2_INSTANCE_ID}
                     sleep 40
                     '''
-                }
-            }
-        }
-        stage('Checkout & Execute Robot Framework') {
-            steps {
-                script {
 					String repoUrl = params.pip_robot_url ?: env.pip_robot_url
 					String branch = params.pip_robot_branch ?: env.pip_robot_branch
 					String credentialsId = params.pip_robot_checkout_credentials ?: env.pip_robot_checkout_credentials
@@ -51,42 +45,15 @@ pipeline {
                         }
                         
                     }
-
-                }
-            }
-        }
-        stage('Copy testdata report to S3 Bucket') {
-            steps {
-                script {
                     sh '''
-                    aws ssm start-session --document-name 'AWS-StartInteractiveCommand' --parameters '{"command": ["aws s3 cp /home/ssm-user/test-html-report/TestSuits/HiL_System/testdata s3://hil-validation/testdata --recursive"]}' --target ${EC2_INSTANCE_ID}
-                    '''
-                }
-            }
-        }
-        stage('Download testdata from S3 to Workspace') {
-            steps {
-                script {
-                    sh '''
+                    aws ssm start-session --document-name 'AWS-StartInteractiveCommand' --parameters '{"command": ["aws s3 cp /home/ssm-user/test-html-report/TestSuits/HiL_System/testdata s3://hil-validation/testdata --recursive && cd ~ && rm -rf test-html-report"]}' --target ${EC2_INSTANCE_ID}
                     aws s3 cp s3://hil-validation/testdata ./testdata --recursive
-                    '''
-                }
-            }
-        }
-		stage('Stop the AWS Instance') {
-            steps {
-                script {
-                    sh '''
                     aws ec2 stop-instances --instance-ids ${EC2_INSTANCE_ID}
+
                     '''
                 }
             }
         }
-    }
-    post {
-        always {
-            publishRobotResult("testdata", 90, 80)
-      }
     }
 }
 
@@ -139,7 +106,7 @@ def executeRobot(def repoDetails) {
 }
 
 def publishRobotResult(String testResultsDirectory, Integer passThreshold, Integer unstableThreshold) {
-    stage('Publish test results') {
+    stage('Publish HiL_Report') {
 		script {
 			publishHTML([
             allowMissing: true,
