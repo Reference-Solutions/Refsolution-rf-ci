@@ -14,7 +14,7 @@ pipeline {
                 script {
                     sh '''
                     aws ec2 start-instances --instance-ids ${EC2_INSTANCE_ID}
-                    sleep 2
+                    sleep 40
                     '''
 					String repoUrl = params.pip_robot_url ?: env.pip_robot_url
 					String branch = params.pip_robot_branch ?: env.pip_robot_branch
